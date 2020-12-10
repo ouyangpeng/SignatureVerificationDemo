@@ -18,11 +18,11 @@ Java_com_aizuzi_verificationdemo_MainActivity_checkSha1(
         jobject,
         jobject contextObject) {
 
-char *sha1 = getSha1(env,contextObject);
+    char *sha1 = getSha1(env, contextObject);
 
-jboolean result = checkValidity(env,sha1);
+    jboolean result = checkValidity(env, sha1);
 
-return result;
+    return result;
 }
 extern "C"
 JNIEXPORT jstring JNICALL
@@ -31,12 +31,12 @@ Java_com_aizuzi_verificationdemo_MainActivity_getToken(
         jobject,
         jobject contextObject,
         jstring userId) {
-    char *sha1 = getSha1(env,contextObject);
-    jboolean result = checkValidity(env,sha1);
+    char *sha1 = getSha1(env, contextObject);
+    jboolean result = checkValidity(env, sha1);
 
-    if(result){
+    if (result) {
         return env->NewStringUTF("获取Token成功");
-    }else{
+    } else {
         return env->NewStringUTF("获取失败，请检查valid.cpp文件配置的sha1值");
     }
 }
