@@ -17,13 +17,18 @@ public class SignatureVerificationUtil {
     }
 
     /**
-     * A native method that is implemented by the 'native-lib' native library,
-     * which is packaged with this application.
+     * 从C层拿预置的SHA1码
      */
     public native String getSignaturesSha1FromC(Context context);
 
+    /**
+     * 从C层验证签名是否正确
+     */
     public native boolean checkSha1FromC(Context context);
 
+    /**
+     * 从C层去做具体的业务，做之前要验证签名是否正确，如果不正确，则获取Token失败
+     */
     public native String getTokenFromC(Context context, String userId);
 
 
