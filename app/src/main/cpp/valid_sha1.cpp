@@ -123,16 +123,16 @@ char *getSha1(JNIEnv *env, jobject context_object) {
     }
     hex_sha[array_size * 2] = '\0';
 
-    LOGD("hex_sha %s ", hex_sha);
+    LOGD("hex_sha  %s ", hex_sha);
     return hex_sha;
 }
 
 jboolean checkValidity(JNIEnv *env, char *sha1) {
     //比较签名
     if (strcmp(sha1, app_sha1) == 0) {
-        LOGD("验证成功");
+        LOGD("Verified successfully!");
         return true;
     }
-    LOGD("验证失败");
+    LOGD("Verification Failed!");
     return false;
 }
