@@ -57,7 +57,7 @@ Java_com_csdn_ouyangpeng_jni_SignatureVerificationUtil_getTokenFromC(
         return env->NewStringUTF("获取Token成功，token为 ouyangpeng");
     } else {
         // 方式一、验证不通过 直接抛异常
-        JNU_ThrowByName(env,"java/lang/IllegalArgumentException","Failed to obtain Token, please check the sha1 value configured in valid.cpp file");
+        JNU_ThrowByName(env,"java/lang/IllegalArgumentException","Failed to obtain Token, You are a thief, please do not use my so files!");
 
         // 方式二、如果签名不正确，则返回错误的结果，迷惑窃取方。
 //        return env->NewStringUTF("获取Token失败，请检查valid.cpp文件配置的sha1值");
