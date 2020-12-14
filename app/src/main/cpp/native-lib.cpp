@@ -2,6 +2,19 @@
 #include <string>
 #include"valid_sha1.cpp"
 
+void JNU_ThrowByName(JNIEnv *env, const char* name, const char* msg);
+
+// https://www.kancloud.cn/owenoranba/jni/120509
+void JNU_ThrowByName(JNIEnv *env, const char* name, const char* msg){
+    jclass cls = (*env).FindClass(name);
+    /*if cls is NULL, an exception has already been thrown */
+    if(cls){
+        (*env).ThrowNew(cls, msg);
+    }
+    /* free the local ref */
+    (*env).DeleteLocalRef(cls);
+}
+
 extern "C"
 JNIEXPORT jstring JNICALL
 Java_com_csdn_ouyangpeng_jni_SignatureVerificationUtil_getSignaturesSha1FromC(
@@ -43,7 +56,10 @@ Java_com_csdn_ouyangpeng_jni_SignatureVerificationUtil_getTokenFromC(
     if (result) {
         return env->NewStringUTF("获取Token成功，token为 ouyangpeng");
     } else {
-        // 如果签名不正确，则提示不可用
-        return env->NewStringUTF("获取Token失败，请检查valid.cpp文件配置的sha1值");
+        // 方式一、验证不通过 直接抛异常
+        JNU_ThrowByName(env,"java/lang/IllegalArgumentException","Failed to obtain Token, please check the sha1 value configured in valid.cpp file");
+
+        // 方式二、如果签名不正确，则返回错误的结果，迷惑窃取方。
+//        return env->NewStringUTF("获取Token失败，请检查valid.cpp文件配置的sha1值");
     }
 }
